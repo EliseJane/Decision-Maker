@@ -76,31 +76,13 @@ export default class AllOptions extends Component<> {
     }).then(() => {
       let options = this.state.options;
       options.push(this.state.text);
-      this.setState({options});
+      this.setState({options: options, text: ''});
     }).catch(this.errorCB);
   }
 
-/*
-<TouchableHighlight onPress={this.addOption}>
-  <Text style={styles.add}>
-    <Text style={{color: '#870000'}}>+</Text>
-    <Text> </Text>
-    <Text style={{color: '#ff9000'}}>A</Text>
-    <Text style={{color: '#ffc700'}}>d</Text>
-    <Text style={{color: '#eeff00'}}>d</Text>
-    <Text> </Text>
-    <Text style={{color: '#aeff00'}}>a</Text>
-    <Text style={{color: '#00ff3b'}}>n</Text>
-    <Text> </Text>
-    <Text style={{color: '#00ffed'}}>o</Text>
-    <Text style={{color: '#0099ff'}}>p</Text>
-    <Text style={{color: '#1500ff'}}>t</Text>
-    <Text style={{color: '#6a00ff'}}>i</Text>
-    <Text style={{color: '#bb00ff'}}>o</Text>
-    <Text style={{color: '#870067'}}>n</Text>
-  </Text>
-</TouchableHighlight>
-*/
+  backToHome = () => {
+    this.props.navigator.popToTop();
+  }
 
   render() {
     return(
@@ -110,10 +92,16 @@ export default class AllOptions extends Component<> {
           style={styles.add}
           placeholder="+ Add a new option"
           onChangeText={(text) => this.setState({text})}
+          value={this.state.text}
         />
         <Button
           onPress={this.addOption}
           title="Save"
+          color="lightgrey"
+        />
+        <Button
+          onPress={this.backToHome}
+          title="Done"
           color="lightgrey"
         />
         <ListView
@@ -147,10 +135,6 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row'
-  },
-  delete: {
-    width: 100,
-    height: 100
   },
   add: {
     fontSize: 20,

@@ -11,9 +11,13 @@ export default class App extends Component<{}> {
       <NavigatorIOS
         style={styles.container}
         initialRoute={{
-          title: 'Desicion Maker',
+          title: 'All Questions',
           component: FrontPage,
         }}
+        barTintColor='red'
+        tintColor="lightgrey"
+        titleTextColor="black"
+        translucent={true}
       />
     );
   }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AllOptions from './AllOptions';
+import NewQuestion from './NewQuestion';
 import {
   StyleSheet,
   Text,
@@ -118,7 +119,11 @@ export default class FrontPage extends Component<> {
   }
 
   newQuestion = () => {
-
+    this.props.navigator.push({
+      title: "Add Question",
+      component: NewQuestion,
+      passProps: {questions: this.state.questions, db: this.db}
+    });
   }
 
   pickRandom = () => {
@@ -149,7 +154,7 @@ export default class FrontPage extends Component<> {
           options.push(row.option);
         }
         this.props.navigator.push({
-          title: q,
+          title: "All Options",
           component: AllOptions,
           passProps: {question: q, options: options, db: this.db}
         });
@@ -203,7 +208,7 @@ export default class FrontPage extends Component<> {
         />
         <Button
           onPress={this.seeOptions}
-          title="See all options"
+          title="All options"
           color="red"
         />
       </View>);

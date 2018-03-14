@@ -52,13 +52,13 @@ export default class FrontPage extends Component<> {
 
     tx.executeSql('CREATE TABLE IF NOT EXISTS Questions( '
         + 'id INTEGER PRIMARY KEY NOT NULL, '
-        + 'question VARCHAR(50) UNIQUE ); ').catch((error) => {
+        + 'question VARCHAR(50) UNIQUE NOT NULL CHECK (LENGTH(question) > 0) ); ').catch((error) => {
         this.errorCB(error)
     });
 
     tx.executeSql('CREATE TABLE IF NOT EXISTS Options( '
         + 'id INTEGER PRIMARY KEY NOT NULL, '
-        + 'option VARCHAR(50) UNIQUE, '
+        + 'option VARCHAR(50) UNIQUE NOT NULL CHECK (LENGTH(option) > 0), '
         + 'question_id INTEGER, '
         + 'FOREIGN KEY ( question_id ) REFERENCES Questions ( id ) ON DELETE CASCADE ); ').catch((error) => {
         this.errorCB(error)
@@ -74,6 +74,14 @@ export default class FrontPage extends Component<> {
     tx.executeSql('INSERT INTO Options (option, question_id) VALUES ("Blue", 2);');
     tx.executeSql('INSERT INTO Options (option, question_id) VALUES ("Purple", 2);');
     tx.executeSql('INSERT INTO Options (option, question_id) VALUES ("Black", 2);');
+    tx.executeSql('INSERT INTO Options (option, question_id) VALUES ("Yellow", 2);');
+    tx.executeSql('INSERT INTO Options (option, question_id) VALUES ("White", 2);');
+    tx.executeSql('INSERT INTO Options (option, question_id) VALUES ("Pink", 2);');
+    tx.executeSql('INSERT INTO Options (option, question_id) VALUES ("Turquoise", 2);');
+    tx.executeSql('INSERT INTO Options (option, question_id) VALUES ("Orange", 2);');
+    tx.executeSql('INSERT INTO Options (option, question_id) VALUES ("Green", 2);');
+    tx.executeSql('INSERT INTO Options (option, question_id) VALUES ("Brown", 2);');
+    tx.executeSql('INSERT INTO Options (option, question_id) VALUES ("Magenta", 2);');
   }
 
   // checkIfPopulated = (tx) => {
@@ -236,7 +244,6 @@ export default class FrontPage extends Component<> {
           onPress={this.deleteAlert}
           title="Delete question"
           color="yellow"
-          style={styles.delete}
         />
       </View>
     );
@@ -265,8 +272,5 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     justifyContent: 'center'
-  },
-  delete: {
-    fontSize: 10
   }
 });
